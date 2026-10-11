@@ -1,0 +1,22 @@
+name: Bug report / 缺陷报告
+description: A reproducible failure in the reference implementation
+title: '[Bug] '
+labels: [bug]
+body:
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction / 复现步骤
+      description: Include commands, Node/Python version and operating system. Do not include private keys or customer data.
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Expected and observed behavior / 预期与实际结果
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Sanitized evidence / 脱敏证据

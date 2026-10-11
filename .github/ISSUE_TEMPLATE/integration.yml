@@ -1,0 +1,23 @@
+name: Integration or use case / 集成与使用场景
+description: Bring a real personal-agent workflow or propose an adapter
+title: '[Integration] '
+labels: [enhancement]
+body:
+  - type: input
+    id: host
+    attributes:
+      label: Host or tool / 宿主或工具
+      description: Runtime, language or merchant tooling; no private account identifiers.
+    validations:
+      required: true
+  - type: textarea
+    id: workflow
+    attributes:
+      label: Workflow and current obstacle / 流程与当前困难
+      description: What should the seller/buyer agent do, and what cannot it reliably do today?
+    validations:
+      required: true
+  - type: textarea
+    id: contribution
+    attributes:
+      label: Proposed contribution and evidence / 贡献方向与验收证据
