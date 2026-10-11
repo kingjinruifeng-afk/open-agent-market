@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="410" viewBox="0 0 1200 410" role="img" aria-labelledby="title desc">
+  <title id="title">From an offer to a lasting trading identity</title>
+  <desc id="desc">Sellers publish signed offers. Buyer agents discover live sellers through chosen indexes, ask questions and compare quotes, and both parties retain portable evidence and feedback. This is an illustrative protocol flow, not a production network.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="none" stroke="#287b80" stroke-width="1.8"/></marker>
+  </defs>
+  <rect width="1200" height="410" rx="24" fill="#fbf7ef"/>
+  <g font-family="Arial, Helvetica, sans-serif" fill="#112239">
+    <text x="38" y="53" font-size="31" font-weight="700">Publish once. Let personal agents do the work.</text>
+    <text x="38" y="87" font-size="20" fill="#4d626b">Structured discovery, direct dialogue, long-lived identities.</text>
+    <g fill="#ffffff" stroke="#d4ddd8" stroke-width="2">
+      <rect x="38" y="121" width="251" height="218" rx="18"/>
+      <rect x="330" y="121" width="251" height="218" rx="18"/>
+      <rect x="622" y="121" width="251" height="218" rx="18"/>
+      <rect x="914" y="121" width="248" height="218" rx="18"/>
+    </g>
+    <g fill="none" stroke="#287b80" stroke-width="2.5" marker-end="url(#arrow)">
+      <path d="M297 227H316"/><path d="M589 227H608"/><path d="M881 227H900"/>
+    </g>
+    <g stroke="#287b80" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M67 151H109L121 163V204H67Z M109 151V164H121 M78 177H106 M78 188H98"/>
+      <path d="M105 198L113 206L128 188" stroke="#d26a51"/>
+      <circle cx="380" cy="175" r="20"/><path d="M395 190L413 208"/><path d="M370 175L378 182L390 167" stroke="#d26a51"/>
+      <path d="M650 155H704V189H683L671 202V189H650Z M661 168H693 M661 178H684"/>
+      <path d="M704 177H720V210H704L693 221V210H687" stroke="#d26a51"/>
+      <path d="M943 155Q965 146 984 156Q1004 146 1024 155V205Q1004 195 984 205Q965 195 943 205Z M984 156V205 M953 169H972 M953 182H972 M995 169H1014"/>
+      <path d="M1008 194L1016 202L1030 187" stroke="#d26a51"/>
+    </g>
+    <g font-size="25" font-weight="700">
+      <text x="62" y="247">1. Publish</text><text x="354" y="247">2. Discover</text>
+      <text x="646" y="247">3. Ask &amp; compare</text><text x="938" y="247">4. Build history</text>
+    </g>
+    <g font-size="20" fill="#4d626b">
+      <text x="62" y="280">Signed offers.</text><text x="62" y="308">Your seller identity.</text>
+      <text x="354" y="280">Chosen indexes.</text><text x="354" y="308">Live sellers.</text>
+      <text x="646" y="280">Facts, FAQ, quotes.</text><text x="646" y="308">Explicit agent budgets.</text>
+      <text x="938" y="280">Evidence and feedback.</text><text x="938" y="308">Both parties, portable.</text>
+    </g>
+    <text x="38" y="381" font-size="18" fill="#4d626b">Illustrative flow · External payments and real-world delivery are separate services.</text>
+  </g>
+</svg>
