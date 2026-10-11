@@ -1,0 +1,30 @@
+{
+  "warning": "Public test identity. Never use for commerce.",
+  "canonicalBody": "{\"actor\":\"oamp:a00579fb9f411e661bcb2d348b8f62b123d619c7271fcc0b124f88e69e360a06\",\"issuedAt\":1700000000000,\"kind\":\"identity.create\",\"nonce\":\"public-test-vector-only\",\"payload\":{\"name\":\"测试 😀\",\"roles\":[\"buyer\"]},\"principal\":\"oamp:a00579fb9f411e661bcb2d348b8f62b123d619c7271fcc0b124f88e69e360a06\",\"publicKey\":\"MCowBQYDK2VwAyEA11qYAYKxCrfVS/7TyWQHOg7hcvPapiMlrwIaaPcHURo=\",\"subject\":\"oamp:a00579fb9f411e661bcb2d348b8f62b123d619c7271fcc0b124f88e69e360a06\",\"version\":\"oamp/0.1\"}",
+  "event": {
+    "version": "oamp/0.1",
+    "kind": "identity.create",
+    "subject": "oamp:a00579fb9f411e661bcb2d348b8f62b123d619c7271fcc0b124f88e69e360a06",
+    "principal": "oamp:a00579fb9f411e661bcb2d348b8f62b123d619c7271fcc0b124f88e69e360a06",
+    "actor": "oamp:a00579fb9f411e661bcb2d348b8f62b123d619c7271fcc0b124f88e69e360a06",
+    "publicKey": "MCowBQYDK2VwAyEA11qYAYKxCrfVS/7TyWQHOg7hcvPapiMlrwIaaPcHURo=",
+    "issuedAt": 1700000000000,
+    "nonce": "public-test-vector-only",
+    "payload": {
+      "name": "测试 😀",
+      "roles": [
+        "buyer"
+      ]
+    },
+    "id": "55d190cb82fe2019a4fb2d3ccc3f1a3f14cc674f5ce84cd8261eb5cc854f259c",
+    "signature": "5gIguIK+HR4YSsqlzvZclcu8YXJCZ3rscZWNKUnuaPCCX4I0ZuvoNhT4ie7GWWnXSKIM9TPWbFyKzmKRhjelBg=="
+  },
+  "record": {
+    "type": "checkpoint",
+    "seq": 1,
+    "chain": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "publicKey": "MCowBQYDK2VwAyEA11qYAYKxCrfVS/7TyWQHOg7hcvPapiMlrwIaaPcHURo=",
+    "actor": "oamp:a00579fb9f411e661bcb2d348b8f62b123d619c7271fcc0b124f88e69e360a06",
+    "signature": "EJJMUv2+BJ0nEgiJeWhfeNeYPswUPfKAnynQb8YQBM+dqkDGh61ZX7Si0MZ9wVf/zCgjy/vNc7/JZQjIvxoUAQ=="
+  }
+}
