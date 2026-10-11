@@ -34,4 +34,4 @@ Optional verified payment/logistics attestations, stock reservations, private ev
 
 当前重点是把个人 Agent 的真实流程接起来，并验证检索、迁移、双向信誉和运营成本。先完成可复现证据，再扩大到住宿、服务或其他复杂交易。匿名身份不代表独立主体；模拟评审不能代替真实专业评审，运行多个进程不能代替独立运营者。
 
-Use [Issues](https://github.com/kingjinruifeng-afk/open-agent-market/issues) for scoped work and [Discussions](https://github.com/kingjinruifeng-afk/open-agent-market/discussions) for use cases and protocol questions.
+Use [Issues](https://github.com/oldjin-ai/open-agent-market/issues) for scoped work and [Discussions](https://github.com/oldjin-ai/open-agent-market/discussions) for use cases and protocol questions.

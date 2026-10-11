@@ -1,6 +1,6 @@
 # 执行与验收状态 · 2026-10-11
 
-当前交付：**OAMP/0.1 本地实验参考实现，Gate A 通过，Gate B 未通过。** 已获项目所有者授权发布到 `kingjinruifeng-afk/open-agent-market`，并设置每日社区巡检。发布和云端验证的实际记录另见 [PUBLICATION.md](PUBLICATION.md)。没有启动长期驻留的公共服务。
+当前交付：**OAMP/0.1 本地实验参考实现，Gate A 通过，Gate B 未通过。** 已获项目所有者授权发布到 `oldjin-ai/open-agent-market`，并设置每日社区巡检。发布和云端验证的实际记录另见 [PUBLICATION.md](PUBLICATION.md)。没有启动长期驻留的公共服务。
 
 ## 计划执行
 
