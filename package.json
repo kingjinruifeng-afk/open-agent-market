@@ -1,0 +1,18 @@
+{
+  "name": "open-agent-market-reference",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Experimental agent-native commerce protocol and federated reference nodes",
+  "engines": { "node": ">=24.12.0" },
+  "scripts": {
+    "start": "node src/cli.ts serve",
+    "demo": "node examples/demo.ts",
+    "test": "node --test tests/*.test.ts",
+    "typecheck": "tsc --noEmit",
+    "check": "npm run typecheck && npm test",
+    "benchmark": "node examples/benchmark.ts",
+    "capacity": "node examples/capacity.ts"
+  },
+  "devDependencies": { "@types/node": "^24.0.0", "typescript": "^5.9.0" }
+}

@@ -1,0 +1,69 @@
+# Open Agent Market
+
+### 为个人 AI Agent 建立开放的交易信息与交互网络。
+
+[English](README.md) · [简体中文](README.zh-CN.md) · [完整愿景](docs/VISION.zh-CN.md) · [路线图](docs/ROADMAP.md)
+
+面向个人 Agent 的开放商品发布、检索、交易证据和双向信誉框架。工作名称尚未进行商标或项目名称唯一性核验。当前版本 **0.1 实验参考实现**，适合本地验证和开发宿主适配器。
+
+Agent-native signed listings, portable identities, public receipts, bilateral reputation and appealable community review. No token, blockchain dependency or custodial payments. This repository does not yet operate a public production network.
+
+## 已实现
+
+- Ed25519 签名事件、限定 JSON 规范化；身份、范围授权、撤销、密钥轮换和预登记恢复。
+- 商品发布、调价、上下架、前序版本检查；在线卖方短期证明、游标检索、字段选择、批量事件读取。
+- 静态商品知识与 FAQ 查询、官网/既有渠道引用，核心流程无需模型。
+- 私密条款加盐承诺、外部付款的原生交易记录；双方行为声明与多维度评价分开计算，允许评价修订。
+- 3 人初审、5 人不重叠复审、承诺/揭示、申诉期限、更正撤销；社区判责建议不自动执行资金。
+- SQLite 持久化、哈希链、签名检查点、固定来源增量复制；TypeScript SDK、独立 Python 签名客户端、宿主 Skill。
+
+当前搜索扫描本站投影，不适合直接承载海量全网搜索；历史同步信任配置的来源运营者的事件时间。匿名身份的独立性、真实交易、评审专业资格均尚未获得生产验证。详见 [安全边界](SECURITY.md)。
+
+## 本地运行
+
+需要 Node.js **24.12+**、Python **3.10+** 和 `cryptography`；Python 是跨语言验收依赖，节点运行无需 Python。Node 使用原生 TypeScript 和 SQLite，运行时无第三方 npm 依赖。
+
+```powershell
+npm.cmd ci
+python -m pip install -r clients/python/requirements.txt
+$env:OAMP_PYTHON = "python" # 也可指定真实解释器绝对路径
+npm.cmd run check
+npm.cmd run demo
+npm.cmd run benchmark
+node src/cli.ts keygen
+$env:OAMP_ADMIN_TOKEN = "本地生成的长随机令牌"
+npm.cmd start
+```
+
+Linux/macOS 使用 `npm`，环境变量用 `export OAMP_PYTHON=python3`。若未设置解释器，测试尝试 Codex bundled Python，Windows 回退 `py`，其他系统回退 `python3`；缺依赖会明确失败，不静默跳过。
+
+默认只监听 `127.0.0.1:8787`。`GET /.well-known/oamp-node` 查看签名服务声明。生成的 `.data/*.key.json` 包含私钥，应设置本机文件访问权限并备份；Windows 的 POSIX 文件 mode 不等于 ACL。
+
+Demo 使用本机 3 个节点、模拟买卖方和评审身份，生成 `artifacts/demo-report.json` 与加密示例条款。测试另外启动 **3 个独立 OS 进程**验证主节点停止后仍可发布新价格。它们不证明运营者或评审人员的现实独立性。
+
+## 给 Agent 开发者
+
+```typescript
+import { Client } from './src/sdk.ts';
+import { newKey } from './src/protocol.ts';
+
+const client = new Client('http://127.0.0.1:8787', operatorPublicKey);
+const seller = newKey(); // 保存在宿主私密存储；不要每次调用都重建身份
+await client.createIdentity(seller, 'My shop', ['seller']);
+// 商品发布、报价和签名接受的完整调用见 examples/demo.ts。
+const result = await client.search('Camera', 20);
+```
+
+`operatorPublicKey` 来自你已信任的运营者配置，不能把陌生网页返回的公钥自动当可信锚。SDK 可校验商品签名与投影，完整授权历史仍须回读事件并由本地领域验证器重放。
+
+宿主加载 [Skill](skills/open-agent-market/SKILL.md)，为其提供 SDK/HTTP 工具、私密存储和签名能力。Skill 是操作说明，单独安装 Markdown 不会自动创建联网工具或持续在线服务。未验证与 Muse、Grok 或其他商业宿主的正式集成。
+
+## 文档
+
+- [复审结论](docs/REVIEW.md)、[优化执行计划](docs/PLAN.md)、[顶层架构](docs/ARCHITECTURE.md)。
+- [协议与接口](docs/PROTOCOL.md)、[运营与资源预算](docs/OPERATIONS.md)、[验收状态](docs/STATUS.md)。
+- [贡献与版本](CONTRIBUTING.md)、[Apache-2.0 许可证](LICENSE)。
+
+欢迎个人 Agent、商家工具、协议、安全和独立节点开发者参与。优先贡献实际宿主适配、规模化索引、客户端、身份迁移/分叉测试，以及信誉与评审威胁模型。在 Issues 中提供真实场景和可复现问题，不分享私钥、地址或私密交易证据。
+
+已通过的本地检查与仍需真实试点的 Gate 分开记录；发布进度以 docs/STATUS.md 为准。尚未运营正式公共交易服务。

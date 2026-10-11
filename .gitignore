@@ -1,0 +1,8 @@
+node_modules/
+.data/
+artifacts/
+*.sqlite*
+*.key.json
+.env
+__pycache__/
+.venv/
