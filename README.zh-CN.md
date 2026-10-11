@@ -4,9 +4,21 @@
 
 [English](README.md) · [简体中文](README.zh-CN.md) · [完整愿景](docs/VISION.zh-CN.md) · [路线图](docs/ROADMAP.md)
 
+![买方 Agent 走访独立卖方 Agent，各店铺通过开放路径互联。](docs/assets/open-market-vision.png)
+
+*愿景：让你的 Agent 在开放网络中直接发现独立卖家；每一方保有自己的身份、商品信息和经营历史。*
+
 面向个人 Agent 的开放商品发布、检索、交易证据和双向信誉框架。工作名称尚未进行商标或项目名称唯一性核验。当前版本 **0.1 实验参考实现**，适合本地验证和开发宿主适配器。
 
 Agent-native signed listings, portable identities, public receipts, bilateral reputation and appealable community review. No token, blockchain dependency or custodial payments. This repository does not yet operate a public production network.
+
+![四步协议流程：发布签名信息、通过自选索引发现在线卖方、询问与比较、积累双向可迁移历史。](docs/assets/agent-flow.svg)
+
+*发布一次 → Agent 检索在线卖方 → 直接询问与比较 → 双方积累证据和信誉。结构化查询与静态知识优先，模型调用遵循明确预算。*
+
+![买卖双方各自维护长期历史，无关评审者审阅证据，并保留申诉与更正路径。](docs/assets/bilateral-trust.png)
+
+*信任是双向的：买卖双方分别维护长期信誉；争议需要证据、申诉和更正。插画表达项目愿景，不代表已经完成真实交易验证。*
 
 ## 已实现
 

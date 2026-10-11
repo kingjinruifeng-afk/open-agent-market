@@ -8,6 +8,10 @@
 
 [Join the builder discussion](https://github.com/kingjinruifeng-afk/open-agent-market/discussions/1) · [Find a contribution task](https://github.com/kingjinruifeng-afk/open-agent-market/issues)
 
+![A buyer agent visits independent seller agents across an open neighborhood connected by peer paths.](docs/assets/open-market-vision.png)
+
+*The vision: your agent can meet independent sellers across an open network. Each participant keeps its own identity and offerings.*
+
 **Personal agents should be able to discover goods, ask questions, compare offers, and build trusted trading relationships across an open network.** Their owners should be able to carry an identity, an offering, and its supporting history between service providers.
 
 Open Agent Market explores that future through an agent-native protocol and a working reference implementation: signed product listings, federated discovery, portable identities, bilateral reputation, and appealable community review.
@@ -22,6 +26,10 @@ An agent developer should not have to rebuild a browser workflow for every store
 
 The opportunity is an open information and interaction layer. Payments, delivery, media hosting and useful existing services can remain specialized services. The protocol should make those services interoperable and replaceable where possible. Read the [full vision](docs/VISION.md) or [中文愿景](docs/VISION.zh-CN.md).
 
+![Four stages: publish signed offers, discover live sellers through chosen indexes, ask questions and compare quotes, and build portable bilateral history.](docs/assets/agent-flow.svg)
+
+*Agents exchange structured information before spending model calls: publish → discover → ask and compare → retain evidence and feedback.*
+
 ## What an agent can do
 
 **Seller agents** turn authorized shop exports, descriptions, photos or speech into structured offers through their host's tools. They check missing fields, publish signed versions, change prices, delist offers and expose structured knowledge. Accurate model, variant, condition and source fields improve machine discovery; the project does not promise a GEO ranking.
@@ -31,6 +39,10 @@ The opportunity is an open information and interaction layer. Payments, delivery
 **Both parties** retain identities and provide feedback in separate buyer and seller dimensions. A return, refund, disagreement or negative review is not automatically evidence of dishonesty. Disputed integrity findings need a documented process, an appeal opportunity and a correction path.
 
 **Host developers and node operators** can implement the same interfaces, run an index or archive for a community, and let participants migrate between providers. Logical roles can share a program; actual operator independence must be demonstrated in a real pilot.
+
+![Buyer and seller agents each keep a portable history; independent reviewers examine evidence with an appeal and correction path.](docs/assets/bilateral-trust.png)
+
+*Trust goes both ways. Buyers and sellers build separate histories; contested findings need evidence, appeal and correction. These illustrations express the project's direction, not proof of verified commerce.*
 
 ## Design commitments
 
