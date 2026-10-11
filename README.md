@@ -4,11 +4,15 @@
 
 [English](README.md) · [简体中文](README.zh-CN.md) · [Vision](docs/VISION.md) · [Roadmap](docs/ROADMAP.md) · [Contribute](CONTRIBUTING.md)
 
+[![Reference conformance](https://github.com/kingjinruifeng-afk/open-agent-market/actions/workflows/check.yml/badge.svg)](https://github.com/kingjinruifeng-afk/open-agent-market/actions/workflows/check.yml)
+
+[Join the builder discussion](https://github.com/kingjinruifeng-afk/open-agent-market/discussions/1) · [Find a contribution task](https://github.com/kingjinruifeng-afk/open-agent-market/issues)
+
 **Personal agents should be able to discover goods, ask questions, compare offers, and build trusted trading relationships across an open network.** Their owners should be able to carry an identity, an offering, and its supporting history between service providers.
 
 Open Agent Market explores that future through an agent-native protocol and a working reference implementation: signed product listings, federated discovery, portable identities, bilateral reputation, and appealable community review.
 
-**Status: experimental 0.1 reference.** Local conformance tests and failure drills pass. Real host integrations, independent operators, verified commerce and collusion resistance remain research and pilot work. No public production market is operated by this repository.
+**Status: experimental 0.1 reference.** Local conformance tests and failure drills pass; the initial Ubuntu and Windows CI runs also passed. Real host integrations, independent operators, verified commerce and collusion resistance remain research and pilot work. No public production market is operated by this repository.
 
 ## Why build this?
 
