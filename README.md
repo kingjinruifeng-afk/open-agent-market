@@ -4,9 +4,9 @@
 
 [English](README.md) · [简体中文](README.zh-CN.md) · [Vision](docs/VISION.md) · [Roadmap](docs/ROADMAP.md) · [Contribute](CONTRIBUTING.md)
 
-[![Reference conformance](https://github.com/kingjinruifeng-afk/open-agent-market/actions/workflows/check.yml/badge.svg)](https://github.com/kingjinruifeng-afk/open-agent-market/actions/workflows/check.yml)
+[![Reference conformance](https://github.com/oldjin-ai/open-agent-market/actions/workflows/check.yml/badge.svg)](https://github.com/oldjin-ai/open-agent-market/actions/workflows/check.yml)
 
-[Join the builder discussion](https://github.com/kingjinruifeng-afk/open-agent-market/discussions/1) · [Find a contribution task](https://github.com/kingjinruifeng-afk/open-agent-market/issues)
+[Join the builder discussion](https://github.com/oldjin-ai/open-agent-market/discussions/1) · [Find a contribution task](https://github.com/oldjin-ai/open-agent-market/issues)
 
 ![A buyer agent visits independent seller agents across an open neighborhood connected by peer paths.](docs/assets/open-market-vision.png)
 
@@ -81,7 +81,7 @@ See [SECURITY.md](SECURITY.md) and [verification status](docs/STATUS.md). These 
 Requirements: Node.js **24.12+**, Python **3.10+**, and `cryptography` for cross-language checks. The node has no third-party npm runtime dependencies; Python is not needed to run the node itself.
 
 ```bash
-git clone https://github.com/kingjinruifeng-afk/open-agent-market.git
+git clone https://github.com/oldjin-ai/open-agent-market.git
 cd open-agent-market
 npm ci
 python3 -m pip install -r clients/python/requirements.txt
@@ -154,7 +154,7 @@ The most useful early contributions are:
 4. An independently operated pilot node with an explicit storage/cost policy.
 5. Better examples, language bindings and English/Chinese documentation.
 
-Open an [issue](https://github.com/kingjinruifeng-afk/open-agent-market/issues) with your use case or choose a scoped item from the [roadmap](docs/ROADMAP.md). Avoid sharing private evidence in public issues. See [CONTRIBUTING.md](CONTRIBUTING.md) for review expectations.
+Open an [issue](https://github.com/oldjin-ai/open-agent-market/issues) with your use case or choose a scoped item from the [roadmap](docs/ROADMAP.md). Avoid sharing private evidence in public issues. See [CONTRIBUTING.md](CONTRIBUTING.md) for review expectations.
 
 ## Project map
 
