@@ -1,8 +1,34 @@
 # Open Agent Market
 
-### 为个人 AI Agent 建立开放的交易信息与交互网络。
+### 在买方 Agent 接受报价前，检查完整条款与确切审批。
 
 [English](README.md) · [简体中文](README.zh-CN.md) · [完整愿景](docs/VISION.zh-CN.md) · [路线图](docs/ROADMAP.md)
+
+面向 **Agent 宿主与商家工具开发者**：用结构化报价、签名事件和本地审批参考，验证一次完整的报价接受流程。
+
+先看一个具体例子：**模拟批准 $11.00 报价后，卖方发布 $15.00 新版本，本地助手拒绝使用旧审批接受旧版本。** 新报价需要重新审阅和批准，过程中没有付款。
+
+![本地模拟：$11报价批准后调为$15，旧版本被拒绝，新报价重新审批。](docs/assets/buyer-approval-walkthrough.svg)
+
+## 运行审批演示
+
+需要 Node.js **24.12+**；该演示无需 Python。[PR #6](https://github.com/oldjin-ai/open-agent-market/pull/6) 尚未合并时，使用其分支：
+
+```bash
+git clone https://github.com/oldjin-ai/open-agent-market.git
+cd open-agent-market
+git checkout upgrade/evidence-buyer-approval-20261012
+npm ci
+npm run demo:buyer-approval
+```
+
+预期输出 `PASS`、**17 个本地事件 / 11 项断言**，包含展示快照篡改被拒绝、商品版本变化被拒绝、新报价需新批准、批准只能使用一次。打开生成的 `artifacts/buyer-approval-demo.html` 可回放 40 秒演示；同目录 JSON 报告记录实际断言。[已提交回放页](docs/demos/buyer-approval.html) 也可下载后离线打开。
+
+**这是经过断言检查的本地模拟。** 人工宿主批准为模拟、审批只保存在内存中，没有真实支付、续费/取消执行、人工认证界面或实际宿主接入；商品预检查和接受不是原子操作。[完整边界](docs/BUYER_APPROVAL.md)。
+
+首阶段目标是 **3 位外部开发者复现**，尚无完成记录。欢迎[提交运行结果](https://github.com/oldjin-ai/open-agent-market/issues/new?template=demo-feedback.yml)，只需运行环境、命令和脱敏错误；无需付款或生产接入。主分支尚无表单时，可按[反馈字段](docs/DEMO_FEEDBACK.md)创建普通 Issue。
+
+## 长期方向
 
 ![买方 Agent 走访独立卖方 Agent，各店铺通过开放路径互联。](docs/assets/open-market-vision.png)
 
