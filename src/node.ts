@@ -75,7 +75,7 @@ export class MarketNode {
   descriptor(): Payload {
     return signedRecord(this.key,{ type: 'node', version: 'oamp/0.1', name: this.options.name ?? 'reference-node',
       capabilities: ['directory','relay','archive','index','reputation','community-disputes'],
-      experimental: true, operator: this.key.id, retentionDays: this.options.retentionDays ?? 30,
+      reputationViews: ['legacy','evidence-v2'], experimental: true, operator: this.key.id, retentionDays: this.options.retentionDays ?? 30,
       retentionGuarantee: 'none-in-local-reference', fees: { currency: 'USD', amountMinor: 0, model: 'trial' },
       limits: { maxEvents: this.options.maxEvents ?? 10000, maxBodyBytes: 65536, maxPage: 200 },
       reviewerQualification: 'explicit-bootstrap-pool', storage: 'sqlite', migration: '/v1/events' });
@@ -148,7 +148,11 @@ export class MarketNode {
         faq: query ? Object.fromEntries(Object.entries(faq).filter(([key]) => key.toLowerCase().includes(query.toLowerCase())).slice(0,5)) : faq,
         maxResponseBytes: 32768, modelCalls: 0 };
     }
-    if (method === 'GET' && path.startsWith('/v1/reputation/')) return reputation(this.store,decodeURIComponent(path.slice(15)),now);
+    if (method === 'GET' && path.startsWith('/v1/reputation/')) {
+      const view = url.searchParams.get('view') ?? 'legacy';
+      ensure(view === 'legacy' || view === 'evidence-v2','BAD_REPUTATION_VIEW');
+      return reputation(this.store,decodeURIComponent(path.slice(15)),now,view);
+    }
     if (method === 'GET' && path.startsWith('/v1/cases/')) {
       const c = this.store.get<Payload>('case',decodeURIComponent(path.slice(10))); ensure(c,'NOT_FOUND',undefined,404); return c;
     }

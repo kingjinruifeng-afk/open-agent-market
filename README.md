@@ -1,6 +1,6 @@
 # Open Agent Market
 
-### An open market layer for personal AI agents.
+### Check an offer before your buyer agent accepts it.
 
 [English](README.md) · [简体中文](README.zh-CN.md) · [Vision](docs/VISION.md) · [Roadmap](docs/ROADMAP.md) · [Contribute](CONTRIBUTING.md)
 
@@ -8,13 +8,37 @@
 
 [Join the builder discussion](https://github.com/oldjin-ai/open-agent-market/discussions/1) · [Find a contribution task](https://github.com/oldjin-ai/open-agent-market/issues)
 
+For **agent-host and merchant-tool developers** exploring structured commerce: publish offers, inspect seller claims, and bind a buyer's local approval to an exact quote. TypeScript reference, Python client, open protocol.
+
+Start with one concrete case: **a seller changes an $11.00 offer to $15.00 after simulated approval. The local helper rejects acceptance against the old listing version.** A new quote needs a new approval. No money moves.
+
+![Checked local simulation: original $11 offer, changed $15 listing rejects old approval, fresh approval accepts one initial agreement.](docs/assets/buyer-approval-walkthrough.svg)
+
+## Run the approval walkthrough
+
+Requires Node.js **24.12+**. Python is not needed for this demo. While [PR #6](https://github.com/oldjin-ai/open-agent-market/pull/6) is unmerged, use its branch:
+
+```bash
+git clone https://github.com/oldjin-ai/open-agent-market.git
+cd open-agent-market
+git checkout upgrade/evidence-buyer-approval-20261012
+npm ci
+npm run demo:buyer-approval
+```
+
+Expected: `PASS`, **17 local events / 11 assertions**, including `PREVIEW_CHANGED`, `LISTING_CHANGED`, new approval and single-use acceptance. Open the generated `artifacts/buyer-approval-demo.html` for a 40-second replay; the JSON report beside it contains the actual assertions. The [committed replay](docs/demos/buyer-approval.html) can also be downloaded and opened offline.
+
+**This is a checked local simulation, not a payment or checkout product.** Host approval is simulated; consent is memory-only. No live renewal/cancellation execution, authenticated human UI or real agent-host integration is claimed. Listing preflight is non-atomic. [Full limits](docs/BUYER_APPROVAL.md).
+
+Ran it? [Report your reproduction result](https://github.com/oldjin-ai/open-agent-market/issues/new?template=demo-feedback.yml), including your runtime, command and a redacted error. We are seeking the first **three external reproductions**; this is a goal, not existing adoption. No purchase or production integration required. If the form is unavailable on main, open a plain issue using [these fields](docs/DEMO_FEEDBACK.md).
+
+## The larger direction
+
+Personal agents should be able to discover goods, ask questions, compare offers, and retain attributable history across an open network. Open Agent Market explores signed product listings, federated discovery, portable identities, bilateral reputation, and appealable community review.
+
 ![A buyer agent visits independent seller agents across an open neighborhood connected by peer paths.](docs/assets/open-market-vision.png)
 
-*The vision: your agent can meet independent sellers across an open network. Each participant keeps its own identity and offerings.*
-
-**Personal agents should be able to discover goods, ask questions, compare offers, and build trusted trading relationships across an open network.** Their owners should be able to carry an identity, an offering, and its supporting history between service providers.
-
-Open Agent Market explores that future through an agent-native protocol and a working reference implementation: signed product listings, federated discovery, portable identities, bilateral reputation, and appealable community review.
+*The vision: each participant keeps its own identity and offerings. This illustration is not evidence of a live marketplace.*
 
 **Status: experimental 0.1 reference.** Local conformance tests and failure drills pass; the initial Ubuntu and Windows CI runs also passed. Real host integrations, independent operators, verified commerce and collusion resistance remain research and pilot work. No public production market is operated by this repository.
 
@@ -73,6 +97,12 @@ Implemented today:
 - TypeScript SDK, Python client, CLI, host [Skill](skills/open-agent-market/SKILL.md), demo and resource-budget examples.
 
 Important limits: search scans local projections; historical replay trusts a pinned source operator's time; reviewer pools and selection seeds are explicitly coordinated. There is no proof of independent humans, professional qualification, truthful sales or hidden-collusion resistance. Quotes do not reserve stock. Payments and legal arbitration are not executed here.
+
+For evidence without misleading legacy labels, use `Client.reputation(id, 'evidence-v2')`: accepted agreements, distinct counterparty identities, sample concentration and explicit unverified independence. The scoring formula and signed event format are unchanged. Old callers retain legacy fields with deprecation warnings; neither view proves sales.
+
+The [buyer approval reference](docs/BUYER_APPROVAL.md) checks complete all-in costs, extras and recurring terms against a buyer policy, then requires a one-use trusted-host approval bound to that exact quote. Run `npm run demo:buyer-approval`. This is a local simulated example: it has no authenticated human UI, durable consent, cumulative wallet budget or external payment/renewal control. The host must isolate signing and approval authority from model tools.
+
+Our next [pilot hypothesis](docs/PILOT.md) is a bounded comparison that helps a person avoid unclear fees, unwanted extras and surprise renewals. Seller signatures make claims attributable; they do not make advertisements true. Actual host adoption and buyer value still need evidence.
 
 See [SECURITY.md](SECURITY.md) and [verification status](docs/STATUS.md). These are concrete contribution opportunities, not hidden production guarantees.
 

@@ -9,6 +9,7 @@ import json
 import time
 import uuid
 import urllib.request
+import urllib.parse
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 
@@ -90,6 +91,12 @@ class Client:
 
     def publish(self, event):
         return self.request("/v1/events", event)
+
+    def reputation(self, identity, view="legacy"):
+        if view not in ("legacy", "evidence-v2"):
+            raise ValueError("BAD_REPUTATION_VIEW")
+        suffix = "" if view == "legacy" else "?view=" + view
+        return self.request("/v1/reputation/" + urllib.parse.quote(identity, safe="") + suffix)
 
     def create_identity(self, key, name, roles):
         event = sign_event(key, "identity.create", key["id"], {"name": name, "roles": roles})

@@ -31,6 +31,10 @@ Verify raw publications, relevant authority history and pinned operator records 
 
 Before accepting a quote recheck seller presence, stock/conditions and the bound buyer/listingVersion/expiresAt/policy. Keep address, conversation, payment identifiers and private evidence locally; publish only allowed minimal fields and salted termsHash. Free text can accidentally leak private details: inspect public review/case text before signing.
 
+Prefer the `evidence-v2` reputation view: distinct counterparty identities and accepted agreements do not prove independent buyers or completed sales. Legacy names are deprecated; never translate them into verified demand. Sample concentration is descriptive, not a collusion finding.
+
+For purchase decisions, show complete all-in price, discount conditions, extras, first-period/renewal costs and cancellation/return terms. Missing costs or terms stop acceptance. The optional TypeScript `BuyerApprovalGate` is a local reference above the SDK: prepare a private preview, then submit only after the trusted host obtains explicit approval for that exact quote and buyer policy. Never expose its approve method or signing key to model tool routing. A scoped protocol key alone does not enforce budget. Changed terms/policy require a new preview; ambiguous publication is reconciled by the original event ID, not automatic retry. This gate has memory-only approvals and per-agreement limits; it does not execute payment, authorize future renewals, prove stock or replace a real host's authenticated durable consent.
+
 ## Feedback and disputes
 
 Record only the party's permitted trade facts and keep participant claims distinct from independent verification. Submit one current rating per trade/author/dimension; use review.amend with previous to revise. Returns, refunds and negative feedback alone never imply dishonesty.

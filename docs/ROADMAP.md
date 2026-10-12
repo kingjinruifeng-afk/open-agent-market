@@ -10,7 +10,7 @@ Signed offers and identities, scoped authority, quotes/receipts, bilateral feedb
 
 | Priority | Work | Acceptance evidence |
 |---|---|---|
-| 1 | Real personal-agent host adapter | A repeatable publish → discover → knowledge → quote/accept workflow; persistent scoped keys; measured tool/model budgets. |
+| 1 | Real personal-agent host adapter + bounded buyer-demand discovery | A repeatable publish → discover → knowledge → explicit approval → quote/accept workflow; persistent scoped keys; measured tool/model budgets. In parallel, validate one comparison task with actual users; do not count the local approval helper as a host integration. See [pilot](PILOT.md). |
 | 2 | Bounded scalable discovery | Indexed queries, stable cursors and declared coverage; active-seller expiry preserved under load; measurements across distinct sellers. |
 | 3 | Independent clients and migration | Another implementation validates fixed vectors and dependencies; fork/recovery scenarios preserve identity and do not silently rewrite history. |
 | 4 | Trust and reviewer threat model | Concrete fabricated-receipt/collusion attacks, qualification and relationship policies, selection manipulation analysis, privacy boundaries. |
@@ -18,6 +18,8 @@ Signed offers and identities, scoped authority, quotes/receipts, bilateral feedb
 | 6 | Real commerce pilot | Consenting buyers/sellers, evidence categories, useful discovery and honest outcomes; ordinary returns/refunds/negative feedback are not punished. |
 
 These are contribution tracks rather than delivery promises. No release date is committed before owners and acceptance evidence exist.
+
+The [2026-10-12 upgrade](UPGRADE_PLAN_2026-10-12.md) adds an explicit evidence view and a local trusted-host approval reference without changing signed events or scoring. Different identities do not prove independent buyers. Approval checks cover one initial agreement, not cumulative funds or external renewal execution. Real commerce remains a separate Gate B task; the earlier comparison exercise does not relax its prerequisites.
 
 ## Small starting points / 适合开始的任务
 

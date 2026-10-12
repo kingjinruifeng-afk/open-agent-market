@@ -1,6 +1,7 @@
 import { randomBytes, createCipheriv, createDecipheriv, scryptSync } from 'node:crypto';
 import { canonical, ensure, hash, signEvent, verifyRecord, verifyEvent } from './protocol.ts';
 import type { Event, IdentityKey, Payload } from './protocol.ts';
+import type { ReputationView } from './domain.ts';
 
 export class Client {
   url: string;
@@ -30,7 +31,10 @@ export class Client {
     ensure(e.kind === 'listing.put' && e.subject === id && subject === id && seller === e.principal && eventId === e.id && canonical(payload) === canonical(e.payload),'BAD_LISTING_PROJECTION');
     return result;
   }
-  async reputation(id: string): Promise<Payload> { return this.request('/v1/reputation/' + encodeURIComponent(id)); }
+  async reputation(id: string, view: ReputationView = 'legacy'): Promise<Payload> {
+    ensure(view === 'legacy' || view === 'evidence-v2','BAD_REPUTATION_VIEW');
+    return this.request('/v1/reputation/' + encodeURIComponent(id) + (view === 'legacy' ? '' : '?view=' + view));
+  }
   async batch(ids: string[]): Promise<(Event | null)[]> {
     const result = await this.request('/v1/batch',{ ids });
     ensure(Array.isArray(result.events) && result.events.length === ids.length,'BAD_BATCH_RESPONSE');
