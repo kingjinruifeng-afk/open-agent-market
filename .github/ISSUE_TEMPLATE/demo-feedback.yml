@@ -1,0 +1,42 @@
+name: Approval demo reproduction
+description: Tell us whether you reproduced the local demo and where it was useful or confusing.
+title: "[Demo] "
+body:
+  - type: markdown
+    attributes:
+      value: "This is a local simulation. No purchase or production deployment is needed. Do not share private keys, approval IDs, salts, private terms, billing IDs or .data files."
+  - type: input
+    id: environment
+    attributes:
+      label: Environment and tested commit
+      description: OS, Node version, branch and commit hash.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Command and observed result
+      description: Did the run report PASS, 17 events and 11 checks? Include only minimal redacted output.
+    validations:
+      required: true
+  - type: textarea
+    id: feedback
+    attributes:
+      label: Useful step, failure or confusing behavior
+      description: Expected versus actual behavior; a concrete use case is welcome. No live host integration is assumed.
+    validations:
+      required: true
+  - type: dropdown
+    id: repeated
+    attributes:
+      label: Have you actually repeated the run?
+      options:
+        - "No"
+        - "Yes"
+  - type: checkboxes
+    id: disclosure
+    attributes:
+      label: Public feedback
+      options:
+        - label: I checked that this report contains no secrets or private purchase details.
+          required: true
