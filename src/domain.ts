@@ -226,7 +226,9 @@ export class Domain {
   }
 }
 
-export function reputation(s: Store, principal: string, now = Date.now()): Payload {
+export type ReputationView = 'legacy' | 'evidence-v2';
+export function reputation(s: Store, principal: string, now = Date.now(), view: ReputationView = 'legacy'): Payload {
+  ensure(view === 'legacy' || view === 'evidence-v2','BAD_REPUTATION_VIEW');
   get(s,'identity',principal);
   const trades = s.all<Doc>('trade').filter(t => t.buyer === principal || t.seller === principal);
   const reviews = s.all<Doc>('review').filter(r => r.target === principal);
@@ -235,9 +237,13 @@ export function reputation(s: Store, principal: string, now = Date.now()): Paylo
     const key = r.role + ':' + r.dimension;
     const items = reviews.filter(x => x.role + ':' + x.dimension === key);
     const scores = items.map(x => Number(x.score)); const recent = items.filter(x => Number(x.issuedAt) >= now - 90 * 86_400_000);
+    const counts = new Map<string,number>();
+    for (const item of items) counts.set(String(item.author),(counts.get(String(item.author)) ?? 0) + 1);
     dimensions[key] = { samples: scores.length, meanMilli: Math.round(scores.reduce((a,b) => a + b,0) * 1000 / scores.length),
       distribution: [1,2,3,4,5].map(v => scores.filter(x => x === v).length), recentSamples: recent.length,
-      independentCounterparties: new Set(items.map(x => x.author)).size, evidenceClass: 'participant-feedback' };
+      ...(view === 'legacy' ? { independentCounterparties: counts.size } : {
+        distinctCounterpartyIdentities: counts.size, maxSamplesFromOneIdentity: Math.max(...counts.values()),
+        counterpartyIndependence: 'not-verified' }), evidenceClass: 'participant-feedback' };
   }
   const cases = s.all<Doc>('case');
   const findings = cases.filter(c => c.status === 'final' && c.integrity !== 'none' &&
@@ -245,7 +251,11 @@ export function reputation(s: Store, principal: string, now = Date.now()): Paylo
   const reviewed = s.all<Doc>('ballot').filter(b => b.reviewer === principal);
   const eligibleContributions = reviewed.filter(b => cases.some(c => c.id === b.case && c.status === 'final' && c.round === b.round));
   return { subject: principal, algorithm: 'reference/0.1', evidenceScope: 'this-node-visible-events',
-    cutoff: now, checkpoint: s.head().chain, acceptedTrades: trades.length, dimensions,
+    cutoff: now, checkpoint: s.head().chain, dimensions,
+    ...(view === 'legacy' ? { acceptedTrades: trades.length, counterpartyIndependence: 'not-verified',
+      legacyFieldWarnings: { independentCounterparties: 'Distinct principals only; not proof of independent people.',
+        acceptedTrades: 'Accepted agreements only; not verified sales or completed orders.' } } : {
+      viewVersion: 'evidence/0.2', acceptedAgreements: trades.length, counterpartyIndependence: 'not-verified' }),
     evidenceClasses: { participantClaims: s.all<Doc>('fact').filter(f => f.principal === principal).length, independentlyVerified: 0 },
     labels: findings.map(c => ({ type: 'community-integrity-finding', case: c.id, decision: c.decisionEvent,
       confidence: 'community-reviewed-not-legal-arbitration', source: get(s,'policy',String(c.policy)).coordinator })),
