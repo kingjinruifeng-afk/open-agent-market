@@ -74,6 +74,12 @@ Implemented today:
 
 Important limits: search scans local projections; historical replay trusts a pinned source operator's time; reviewer pools and selection seeds are explicitly coordinated. There is no proof of independent humans, professional qualification, truthful sales or hidden-collusion resistance. Quotes do not reserve stock. Payments and legal arbitration are not executed here.
 
+For evidence without misleading legacy labels, use `Client.reputation(id, 'evidence-v2')`: accepted agreements, distinct counterparty identities, sample concentration and explicit unverified independence. The scoring formula and signed event format are unchanged. Old callers retain legacy fields with deprecation warnings; neither view proves sales.
+
+The [buyer approval reference](docs/BUYER_APPROVAL.md) checks complete all-in costs, extras and recurring terms against a buyer policy, then requires a one-use trusted-host approval bound to that exact quote. Run `npm run demo:buyer-approval`. This is a local simulated example: it has no authenticated human UI, durable consent, cumulative wallet budget or external payment/renewal control. The host must isolate signing and approval authority from model tools.
+
+Our next [pilot hypothesis](docs/PILOT.md) is a bounded comparison that helps a person avoid unclear fees, unwanted extras and surprise renewals. Seller signatures make claims attributable; they do not make advertisements true. Actual host adoption and buyer value still need evidence.
+
 See [SECURITY.md](SECURITY.md) and [verification status](docs/STATUS.md). These are concrete contribution opportunities, not hidden production guarantees.
 
 ## Try it locally

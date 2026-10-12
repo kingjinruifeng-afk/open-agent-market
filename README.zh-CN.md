@@ -31,6 +31,12 @@ Agent-native signed listings, portable identities, public receipts, bilateral re
 
 当前搜索扫描本站投影，不适合直接承载海量全网搜索；历史同步信任配置的来源运营者的事件时间。匿名身份的独立性、真实交易、评审专业资格均尚未获得生产验证。详见 [安全边界](SECURITY.md)。
 
+2026-10-12增量：`Client.reputation(id, 'evidence-v2')` 显示已接受约定、不同交易对手身份和样本集中程度，明确独立性未验证；旧调用保留兼容字段及弃用说明，评分公式和签名事件不变。多身份不能证明多个独立买家，收货声明不能证明真实履约。
+
+[买方授权参考](docs/BUYER_APPROVAL.md) 检查完整总价、附加购买和续费条款，再要求可信宿主对确切报价进行一次性批准。运行 `npm run demo:buyer-approval`。这是本地模拟，不包含真实人工认证、持久同意记录、累计钱包预算或外部扣款/续费控制。签名键和批准入口必须由宿主隔离，不能作为模型的任意工具。
+
+[试点准备](docs/PILOT.md) 把一个小范围购买比较任务提前验证，记录未知费用、用户纠正、实际成本和再次使用。真实宿主、独立运营者与交易仍待证据；签名使卖方声明可追溯，不保证广告真实。
+
 ## 本地运行
 
 需要 Node.js **24.12+**、Python **3.10+** 和 `cryptography`；Python 是跨语言验收依赖，节点运行无需 Python。Node 使用原生 TypeScript 和 SQLite，运行时无第三方 npm 依赖。
