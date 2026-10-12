@@ -75,6 +75,10 @@ ballot = `{outcome: buyer|seller|shared|insufficient, integrity: none|buyer|sell
 | GET /health?seller=:id&challenge=:nonce | 卖方当前键签名在线证明，有效最多10秒 |
 | GET /v1/metrics | 本地事件/缓存/进程内存指标 |
 
+信誉读取视图：省略 view 或 view=legacy 时保留旧字段与数值，新增 counterpartyIndependence=not-verified 和 legacyFieldWarnings。acceptedTrades 只表示已接受约定，independentCounterparties 只统计不同评价者主体，均不能当成真实成交或独立买家。新调用使用 ?view=evidence-v2：viewVersion=evidence/0.2、acceptedAgreements，维度内为 distinctCounterpartyIdentities、maxSamplesFromOneIdentity、counterpartyIndependence=not-verified，不含误导性的旧名称。未知视图返回 BAD_REPUTATION_VIEW；节点签名声明增加 reputationViews。TS/Python Client.reputation(id, 'evidence-v2') 均可选择新视图，旧调用兼容。algorithm=reference/0.1、评分均值、案件处理、证据类别和 totalScore=null 不变，不改变 OAMP/0.1 签名事件或历史。样本集中程度不等于串谋检测；独立验证数量仍为0。
+
+买方授权参考使用私密 buyer-terms/0.1 和既有加盐 termsHash，不添加协议事件字段。完整费用、附加项、续费及取消条款由可信宿主检查并取得人工批准；签名权限不等于预算执行。参考批准仅内存保存、每份约定一次使用，不执行外部付款或自动续费，不证明实际人工认证、库存或履约。真实宿主必须隔离密钥与批准入口，并提供持久同意及外部支付控制。
+
 search fields 可选 id/seller/title/category/priceMinor/currency/version/presence，id/version/presence始终保留。每页最多检查limit个候选，最多4个在线探测同时执行；可能因离线候选返回不足一页，通过cursor继续。覆盖范围始终是本节点可见的活跃商品。
 
 哈希链：初始前值为64个0，`chain=SHA256('oamp:log:'+previous+':'+event.id)`。检查点签署本地seq/chain，顺序必须连续。不同节点有不同本地序号，不比较两节点检查点哈希来判断信誉一致。不提供 Merkle 包含证明、全局排序或隐瞒事件检测保证。
