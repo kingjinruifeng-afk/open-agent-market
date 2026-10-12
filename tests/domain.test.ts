@@ -80,7 +80,7 @@ test('appeal replaces preliminary result using a disjoint panel',() => {
     assert.equal((reputation(f.store,first[0].id,f.now()).reviewer as Payload).completedContributions,0);
   } finally { f.store.close(); }
 });
-test('five independent correction signatures revoke a final label',() => {
+test('five distinct eligible correction identities revoke a final label',() => {
   const f = fixture(); try {
     f.openCase(); const first = f.assign(); round(f,first,1); f.advance(2000);
     const decision = f.emit(f.coordinator,'case.finalize','case:test',{});
@@ -103,5 +103,42 @@ test('review amendments replace one effective sample while preserving the signed
     assert.equal(dim.samples,1); assert.equal(dim.meanMilli,4000); assert.ok(f.store.event(first.id)); assert.ok(f.store.event(second.id));
     assert.throws(() => f.emit(f.buyer,'review.amend','trade:test',{ ...first.payload, previous: first.id }),/One review/);
     assert.throws(() => f.emit(f.seller,'identity.rotate',f.seller.id,{ newPublicKey: 'not-a-key' }),/Expected canonical/);
+  } finally { f.store.close(); }
+});
+
+test('colluding identities and repeated trades remain claims, not independent sales; views preserve history',() => {
+  const f = fixture(); try {
+    const historyBefore = () => JSON.stringify(f.store.page(0,200));
+    // All fixture keys belong to this one test operator; the network cannot establish independence.
+    const ring = [f.seller,f.buyer,f.outsiders[0]];
+    for (let i = 0; i < ring.length; i++) {
+      const seller = ring[i], buyer = ring[(i + 1) % ring.length];
+      const listing = f.emit(seller,'listing.put','listing:ring:' + i,{ ...f.listing.payload });
+      const quote = f.emit(seller,'quote.offer','quote:ring:' + i,{ ...f.quote.payload, listing: listing.subject, listingVersion: listing.id, buyer: buyer.id });
+      f.emit(buyer,'trade.accept','trade:ring:' + i,{ quote: quote.subject, termsHash: quote.payload.termsHash });
+      f.emit(buyer,'trade.fact','trade:ring:' + i,{ phase: 'payment_claim', evidence: [] });
+      f.emit(buyer,'trade.fact','trade:ring:' + i,{ phase: 'delivery_ack', evidence: [] });
+      f.emit(buyer,'review.submit','trade:ring:' + i,{ target: seller.id, dimension: 'quality', score: 5, text: 'Fabricated receipt and review' });
+    }
+    f.emit(f.buyer,'trade.fact','trade:test',{ phase: 'delivery_ack', evidence: [] });
+    f.emit(f.buyer,'review.submit','trade:test',{ target: f.seller.id, dimension: 'quality', score: 5, text: 'Same operator, another agreement' });
+    const before = historyBefore();
+    const legacy = reputation(f.store,f.seller.id,f.now()), newer = reputation(f.store,f.seller.id,f.now(),'evidence-v2');
+    assert.equal(legacy.acceptedTrades,newer.acceptedAgreements); assert.equal(newer.acceptedAgreements,3);
+    const oldDim = (legacy.dimensions as Payload)['seller:quality'] as Payload;
+    const dim = (newer.dimensions as Payload)['seller:quality'] as Payload;
+    assert.equal(oldDim.independentCounterparties,dim.distinctCounterpartyIdentities);
+    assert.equal(dim.distinctCounterpartyIdentities,1); assert.equal(dim.samples,2); assert.equal(dim.maxSamplesFromOneIdentity,2);
+    assert.equal(dim.meanMilli,oldDim.meanMilli); assert.deepEqual(dim.distribution,oldDim.distribution);
+    assert.equal(dim.counterpartyIndependence,'not-verified'); assert.equal(dim.evidenceClass,'participant-feedback');
+    assert.equal((newer.evidenceClasses as Payload).independentlyVerified,0); assert.equal(newer.totalScore,null);
+    assert.ok(!('independentCounterparties' in dim)); assert.ok(!('acceptedTrades' in newer));
+    assert.equal(newer.algorithm,'reference/0.1'); assert.equal(historyBefore(),before);
+    const rotated = newKey(); f.emit(f.buyer,'identity.rotate',f.buyer.id,{ newPublicKey: rotated.publicKey });
+    f.emit(rotated,'review.amend','trade:test',{ target: f.seller.id, dimension: 'quality', score: 4, text: 'Same principal after rotation',
+      previous: f.store.get<Payload>('review','trade:test:' + f.buyer.id + ':quality')!.eventId },{ principal: f.buyer.id });
+    const after = (reputation(f.store,f.seller.id,f.now(),'evidence-v2').dimensions as Payload)['seller:quality'] as Payload;
+    assert.equal(after.distinctCounterpartyIdentities,1); assert.equal(after.samples,2);
+    assert.throws(() => reputation(f.store,f.seller.id,f.now(),'unknown' as any),/BAD_REPUTATION_VIEW/);
   } finally { f.store.close(); }
 });

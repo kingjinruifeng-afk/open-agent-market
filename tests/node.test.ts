@@ -65,6 +65,12 @@ test('default presence, field selection, batch integrity and filtered pagination
   try {
     await service.start(); await n.start(); n.options.allowedSellerOrigins = [service.url]; const c = new Client(n.url,n.key.publicKey);
     await c.createIdentity(seller,'Shop',['seller']);
+    const descriptor = await c.request('/.well-known/oamp-node'); assert.ok(verifyRecord(descriptor));
+    assert.deepEqual(descriptor.reputationViews,['legacy','evidence-v2']);
+    assert.equal((await c.reputation(seller.id)).acceptedTrades,0);
+    const evidence = await c.reputation(seller.id,'evidence-v2'); assert.equal(evidence.acceptedAgreements,0);
+    assert.equal(evidence.counterpartyIndependence,'not-verified'); assert.ok(!('acceptedTrades' in evidence));
+    await assert.rejects(c.request('/v1/reputation/' + encodeURIComponent(seller.id) + '?view=unknown'),/BAD_REPUTATION_VIEW/);
     const e = await c.emit(seller,'listing.put','listing:default',{ revision: 1, previous: '', title: 'Camera', category: 'electronics', priceMinor: 100,
       currency: 'USD', serviceUrl: service.url, facts: {}, faq: {}, resources: [], active: true });
     const result = await c.request('/v1/search?q=Camera&fields=priceMinor'); assert.equal(result.items.length,1); assert.equal(result.hasMore,false);
