@@ -60,7 +60,7 @@ try {
   await panel(2,'none'); await a.emit(primary.key,'case.finalize','case:demo',{});
   assert.deepEqual((await a.reputation(buyer.id)).labels,[]); checks.push('three-person-review-five-person-appeal-no-premature-penalty');
   await backup.sync(primary.url); await service.sync(primary.url);
-  const rep = await a.reputation(seller.id), copy = await b.reputation(seller.id);
+  const rep = await a.reputation(seller.id,'evidence-v2'), copy = await b.reputation(seller.id,'evidence-v2');
   assert.deepEqual(rep.dimensions,copy.dimensions); checks.push('cross-node-reputation-recomputed');
   await primary.close();
   const s = new Client(service.url); listing = await s.emit(seller,'listing.put',listing.subject,{ ...listing.payload, revision: 3, previous: listing.id, priceMinor: 9000 });
